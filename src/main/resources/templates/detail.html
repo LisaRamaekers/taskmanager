@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task detail</title>
+</head>
+<body>
+<h1>Task detail</h1>
+<h2>Task</h2>
+<table>
+    <div th:text="'Title: ' + ${task.title}"></div>
+    <div th:text="'Description: ' + ${task.description}"></div>
+    <div th:text="'Due date: ' + ${task.due}"></div>
+</table>
+<h2>Subtasks
+</h2>
+<table>
+    <div th:if="${subtasks==null or subtasks.empty}">
+        <p>No subtasks</p>
+    </div>
+    <div th:if="${subtasks!=null and !subtasks.empty}">
+        <ul th:each="subtask:${subtasks}">
+            <div th:text="'Title: ' + ${task.title}"></div>
+            <div th:text="'Description: ' + ${task.description}"></div>
+            <div th:text="'Due date: ' + ${task.due}"></div>
+        </ul>
+
+    </div>
+</table>
+
+</body>
+</html>
