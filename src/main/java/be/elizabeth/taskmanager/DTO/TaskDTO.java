@@ -1,9 +1,4 @@
-package be.elizabeth.taskmanager.domain;
-
-//import be.elizabeth.taskmanager.converter.LocalDateTimeConverter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.annotation.DateTimeFormat;
+package be.elizabeth.taskmanager.DTO;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,14 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Entity
-public class Task {
-    @Id
-    @GeneratedValue
+public class TaskDTO {
+
     private long taskId;
 
     @NotEmpty
@@ -26,31 +17,14 @@ public class Task {
 
     private String description;
 
-    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime due;
 
     private Boolean done;
 
-   /* TODO: implement subtasks
-   @OneToMany
-    private List<Task> subTasks;*/
-
-    /*public Task() {
-
-    }
-    public Task(String title, String description, LocalDateTime due) {
-        setTitle(title);
-        setDescription(description);
-        setDue(due);
-        setDone(false);
-        setSubTasks(new ArrayList<>());
-    }
-
-    public Task(String description, String due) {
-        setDescription(description);
-        setDue(due);
-        setDone(false);
-    }*/
+    /* TODO: implement subtasks
+    @OneToMany
+    private List<TaskDTO> subTasks;
+     */
 
     public long getTaskId() {
         return taskId;
@@ -97,13 +71,15 @@ public class Task {
         return getDescription() + ": " + getDue() + " (" + getDone() + ")";
     }
 
-
     /* TODO: implement subtasks
-    public List<Task> getSubTasks() {
+    public List<TaskDTO> getSubTasks() {
         return subTasks;
     }
 
-    public void setSubTasks(List<Task> subTasks) {
+    public void setSubTasks(List<TaskDTO> subTasks) {
         this.subTasks = subTasks;
-    }*/
+    }
+
+ */
 }
+

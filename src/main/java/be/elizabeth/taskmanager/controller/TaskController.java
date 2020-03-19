@@ -1,5 +1,6 @@
 package be.elizabeth.taskmanager.controller;
 
+import be.elizabeth.taskmanager.DTO.TaskDTO;
 import be.elizabeth.taskmanager.domain.Task;
 import be.elizabeth.taskmanager.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class TaskController {
             return "form";
     }
     @PostMapping("/new")
-    public String postNewTask(@ModelAttribute Task task){
+    public String postNewTask(@ModelAttribute TaskDTO task){
         taskService.add(task);
         return "redirect:/tasks";
     }
@@ -48,20 +49,23 @@ public class TaskController {
         }
     }
     @PostMapping("/edit/{id}")
-    public String postEditTask(@ModelAttribute Task task, @PathVariable String id){
+    public String postEditTask(@ModelAttribute TaskDTO task, @PathVariable String id){
         task.setTaskId(Integer.parseInt(id));
         taskService.update(task);
         return "redirect:/tasks/{id}";
     }
 
+    /*
     @GetMapping("/{id}/sub/create")
     public String getCreateSubForm(@PathVariable String id, Model model){
         model.addAttribute("task", taskService.get(Integer.parseInt(id)));
         return "subForm";
     }
     @PostMapping("/{id}/sub/create")
-    public String postNewSubTask(@ModelAttribute Task task, @PathVariable String id){
+    public String postNewSubTask(@ModelAttribute TaskDTO task, @PathVariable String id){
         taskService.addSubTask(Integer.parseInt(id),task);
         return "redirect:/tasks";
     }
+
+     */
 }

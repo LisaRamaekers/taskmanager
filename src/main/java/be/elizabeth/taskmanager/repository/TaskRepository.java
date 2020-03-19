@@ -1,47 +1,8 @@
 package be.elizabeth.taskmanager.repository;
 
+
 import be.elizabeth.taskmanager.domain.Task;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-@Repository
-public class TaskRepository {
-	private List<Task> list;
-	private int id;
-
-	public TaskRepository() {
-		list = new ArrayList<>();
-		this.add(new Task("TODO 1","Description for task 1", LocalDateTime.now()));
-		this.add(new Task("TODO 2","Description for task 2", LocalDateTime.now()));
-		this.add(new Task("TODO 3","Description for task 3", LocalDateTime.now()));
-
-	}
-
-	public List<Task> getTasks() {
-		return list;
-	}
-
-
-	public void add(Task task) {
-		task.setTaskId(id);
-		list.add(task);
-		id++;
-	}
-
-	public Task get(int id){
-		return list.get(id);
-	}
-
-	public void update(Task task){
-		for( Task t : list){
-			if (t.getTaskId() == task.getTaskId()){
-				t.setTitle(task.getTitle());
-				t.setDescription(task.getDescription());
-				t.setDue(task.getDue());
-			}
-		}
-	}
+public interface TaskRepository extends JpaRepository<Task, Long> {
 }

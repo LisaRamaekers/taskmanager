@@ -11,7 +11,7 @@
 </div>
 <div th:if="${tasks!=null and !tasks.empty}">
     <ul>
-        <li th:each="task:${tasks}" th:text="${task.taskId} + ' - ' + ${task.title} + ': due ' + ${task.due}"></li>
+        <li th:each="task:${tasks}" th:text="${task.taskId} + ' - ' + ${task.title} + ': due ' + ${task.due.getMonth()} + ' ' + ${task.due.getDayOfMonth()} + ' ' + ${task.due.getYear()} + ' at ' + ${task.due.get}"></li>
     </ul>
 </div>
 
