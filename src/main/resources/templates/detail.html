@@ -29,5 +29,16 @@
 </table>
 <div><a th:text="#{my.addsubtask}" th:href="@{|/tasks/${task.id}/sub/create|}"></a></div>
 
+<footer>
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.en}"></option>
+        <option value="nl" th:text="#{lang.nl}"></option>
+        <option value="fr" th:text="#{lang.fr}"></option>
+    </select>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/lang.js"></script>
 </body>
 </html>
