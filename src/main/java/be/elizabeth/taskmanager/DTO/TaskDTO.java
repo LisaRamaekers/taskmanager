@@ -1,16 +1,16 @@
 package be.elizabeth.taskmanager.DTO;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import be.elizabeth.taskmanager.domain.SubTask;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDTO {
 
-    private long taskId;
+    private Long id;
 
     @NotEmpty
     private String title;
@@ -21,17 +21,18 @@ public class TaskDTO {
 
     private Boolean done;
 
-    /* TODO: implement subtasks
-    @OneToMany
-    private List<TaskDTO> subTasks;
-     */
+    @OneToMany(
+            mappedBy = "task",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<SubTaskDTO> subTasks = new ArrayList<>();
 
-    public long getTaskId() {
-        return taskId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTaskId(long taskId) {
-        this.taskId = taskId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -66,20 +67,28 @@ public class TaskDTO {
         this.title = title;
     }
 
+    public List<SubTaskDTO> getSubTasks() {
+        return subTasks;
+    }
+
+    public void setSubTasks(List<SubTaskDTO> subTasks) {
+        this.subTasks = subTasks;
+    }
+
     @Override
     public String toString(){
         return getDescription() + ": " + getDue() + " (" + getDone() + ")";
     }
 
-    /* TODO: implement subtasks
-    public List<TaskDTO> getSubTasks() {
-        return subTasks;
+    public void addSubTask(SubTaskDTO subTask) {
+        subTasks.add(subTask);
+        subTask.setTask(this);
     }
 
-    public void setSubTasks(List<TaskDTO> subTasks) {
-        this.subTasks = subTasks;
+    public void removeComment(SubTaskDTO subTask) {
+        subTasks.remove(subTask);
+        subTask.setTask(null);
     }
 
- */
 }
 

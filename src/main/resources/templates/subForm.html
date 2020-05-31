@@ -13,16 +13,13 @@
     <table>
         <div th:text="'Title: ' + ${task.title}"></div>
         <div th:text="'Description: ' + ${task.description}"></div>
-        <div th:text="'Due date: ' + ${task.due}"></div>
     </table>
     <h2>Create subtask</h2>
-    <form method="post" th:action="'/tasks/'+${task.taskId}+'/sub/create'">
+    <form method="post" th:action="'/tasks/'+${task.id}+'/sub/create'">
         <div><label for="title">Title: </label></div>
         <input name="title" id=title type="text">
         <div><label for="description">Description: </label></div>
         <input name="description" id=description type="text">
-        <div><label for="due">Due: </label></div>
-        <input name="due" id="due" type="datetime-local">
         <input type="submit" value="Submit">
     </form>
 </main>

@@ -5,21 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(name="Task")
+@Table(name="task")
 public class Task {
     @Id
     @GeneratedValue
-    private long taskId;
+    private Long id;
 
     @NotEmpty
     private String title;
@@ -31,33 +29,20 @@ public class Task {
 
     private Boolean done;
 
-   /* TODO: implement subtasks
-   @OneToMany
-    private List<Task> subTasks;*/
+    @OneToMany(
+            mappedBy = "task",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<SubTask> subTasks = new ArrayList<>();
 
-    /*public Task() {
 
-    }
-    public Task(String title, String description, LocalDateTime due) {
-        setTitle(title);
-        setDescription(description);
-        setDue(due);
-        setDone(false);
-        setSubTasks(new ArrayList<>());
+    // GETTERS AND SETTERS
+    public Long getId() {
+        return id;
     }
 
-    public Task(String description, String due) {
-        setDescription(description);
-        setDue(due);
-        setDone(false);
-    }*/
-
-    public long getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(long taskId) {
-        this.taskId = taskId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -92,18 +77,26 @@ public class Task {
         this.title = title;
     }
 
+    public List<SubTask> getSubTasks() { return subTasks; }
+
+    public void setSubTasks(List<SubTask> subTasks) { this.subTasks = subTasks; }
+
     @Override
     public String toString(){
         return getDescription() + ": " + getDue() + " (" + getDone() + ")";
     }
 
 
-    /* TODO: implement subtasks
-    public List<Task> getSubTasks() {
-        return subTasks;
+    // Bidirectional @OneToMany
+    // Methods addSubtask ans removeSubtask
+
+    public void addSubTask(SubTask subTask) {
+        subTasks.add(subTask);
+        subTask.setTask(this);
     }
 
-    public void setSubTasks(List<Task> subTasks) {
-        this.subTasks = subTasks;
-    }*/
+    public void removeComment(SubTask subTask) {
+        subTasks.remove(subTask);
+        subTask.setTask(null);
+    }
 }
