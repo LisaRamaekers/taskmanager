@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Task</title>
+    <title th:text="#{my.addtask}"></title>
 </head>
 <body>
-<h1>Create task</h1>
+<h1 th:text="#{my.createtask}"></h1>
 <form method="post" action="/tasks/new">
-    <div><label for="title">Title: </label></div>
+    <div><label for="title" th:text="#{my.title}+': '"></label></div>
     <input name="title" id=title type="text">
-    <div><label for="description">Description: </label></div>
+    <div><label for="description" th:text="#{my.description}+': '"></label></div>
     <input name="description" id=description type="text">
-    <div><label for="due">Due: </label></div>
+    <div><label for="due" th:text="#{my.due}+': '"></label></div>
     <input name="due" id="due" type="datetime-local">
     <input type="submit" value="Submit">
 </form>

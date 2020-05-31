@@ -2,33 +2,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Task detail</title>
+    <title th:text="#{my.taskdetail}"></titleth:text></title>
 </head>
 <body>
-<h1>Task detail</h1>
-<h2>Task</h2>
+<h1 th:text="#{my.taskdetail}"></h1>
+<h2 th:text="#{my.task}"></h2>
 <table>
-    <div th:text="'Title: ' + ${task.title}"></div>
-    <div th:text="'Description: ' + ${task.description}"></div>
-    <div th:text="'Due date: ' + ${task.due}"></div>
+    <div th:text="#{my.title} + ': ' + ${task.title}"></div>
+    <div th:text="#{my.description} + ': ' + ${task.description}"></div>
+    <div th:text="#{my.date} + ': ' + ${task.due}"></div>
 </table>
-<div><a th:text="'Edit task'" th:href="@{|/tasks/edit/${task.id}/|}"></a></div>
-<h2>Subtasks
-</h2>
+<div><a th:text="#{my.edittask}" th:href="@{|/tasks/edit/${task.id}/|}"></a></div>
+<h2 th:text="#{my.subtasks}"></h2>
 <table>
     <div th:if="${subtasks==null or subtasks.empty}">
-        <p>No subtasks</p>
+        <p th:text="#{my.nosubtasks}"></p>
     </div>
     <div th:if="${subtasks!=null and !subtasks.empty}">
     <div th:if="${subtasks!=null and !subtasks.empty}">
         <ul th:each="subtask:${subtasks}">
-            <div th:text="'Title: ' + ${subtask.title}"></div>
-            <div th:text="'Description: ' + ${subtask.description}"></div>
+            <div th:text="#{my.title} + ': ' + ${subtask.title}"></div>
+            <div th:text="#{my.description} + ': ' + ${subtask.description}"></div>
         </ul>
 
     </div>
 </table>
-<div><a th:text="'Add subtask'" th:href="@{|/tasks/${task.id}/sub/create|}"></a></div>
+<div><a th:text="#{my.addsubtask}" th:href="@{|/tasks/${task.id}/sub/create|}"></a></div>
 
 </body>
 </html>
