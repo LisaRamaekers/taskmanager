@@ -1,31 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/custom.css" type="text/css">
+
     <title th:text="#{my.edittask}"></title>
 </head>
 <body>
-<h1 th:text="#{my.edittask}"></h1>
-<form method="post" th:action="'/tasks/edit/' + ${task.id}">
-    <div><label for="title" th:text="#{my.title}+': '"></label></div>
-    <input name="title" id=title type="text" th:value="${task.title}">
-    <div><label for="description" th:text="#{my.description}+': '"></label></div>
-    <input name="description" id=description type="text" th:value="${task.description}">
-    <div><label for="due" th:text="#{my.due}+': '"></label></div>
-    <input name="due" id="due" type="datetime-local" th:value="${task.due}">
-    <input type="submit" value="Submit">
-</form>
+<header>
+    <nav class="navbar navbar-expand-sm bg-custom navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" href="/">TaskManager</a>
 
-<footer>
-    <span th:text="#{lang.change}"></span>:
-    <select id="locales">
-        <option value=""></option>
-        <option value="en" th:text="#{lang.en}"></option>
-        <option value="nl" th:text="#{lang.nl}"></option>
-        <option value="fr" th:text="#{lang.fr}"></option>
-    </select>
-</footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="js/lang.js"></script>
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/tasks" th:text="#{my.tasks}"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tasks/new" th:text="#{my.newtask}"></a>
+            </li>
+
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/login" th:text="#{my.login}"></a>
+            </li>
+        </ul>
+        <form class="form-inline" th:action="@{/logout}" method="post">
+            <input class="form-control ml-auto" type="submit" value="Sign Out"/>
+        </form>
+    </nav>
+</header>
+<main class="container">
+    <h1 class="mt-5" th:text="#{my.edittask}"></h1>
+    <form method="post" th:action="'/tasks/edit/' + ${task.id}">
+        <div><label for="title" th:text="#{my.title}+': '"></label></div>
+        <input name="title" id=title type="text" th:value="${task.title}">
+        <div><label for="description" th:text="#{my.description}+': '"></label></div>
+        <input name="description" id=description type="text" th:value="${task.description}">
+        <div><label for="due" th:text="#{my.due}+': '"></label></div>
+        <input name="due" id="due" type="datetime-local" th:value="${task.due}">
+        <input type="submit" value="Submit">
+    </form>
+</main>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted"><span th:text="#{lang.change}"></span>:
+                <select id="locales">
+                    <option value=""></option>
+                    <option value="en" th:text="#{lang.en}"></option>
+                    <option value="nl" th:text="#{lang.nl}"></option>
+                    <option value="fr" th:text="#{lang.fr}"></option>
+                </select>
+            </span>
+        </div>
+
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/lang.js"></script>
