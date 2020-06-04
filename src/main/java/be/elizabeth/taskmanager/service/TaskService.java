@@ -12,6 +12,9 @@ public interface TaskService {
     List<TaskDTO> getAll();
     void add(TaskDTO task);
     void update(TaskDTO task);
+    void delete(Long id);
+
+    TaskDTO getByTitle(String title);
 
     void addToTask(Long id, SubTaskDTO subtask);
     List<SubTaskDTO> getAllFromTask(Long id);

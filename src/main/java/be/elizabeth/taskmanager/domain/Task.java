@@ -95,8 +95,8 @@ public class Task {
         subTask.setTask(this);
     }
 
-    public void removeComment(SubTask subTask) {
+    /*public void removeSubTask(SubTask subTask) {
         subTasks.remove(subTask);
         subTask.setTask(null);
-    }
+    }*/
 }

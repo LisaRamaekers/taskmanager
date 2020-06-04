@@ -10,11 +10,15 @@ import be.elizabeth.taskmanager.repository.TaskRepositoryInMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Transactional
+@Service("TaskServiceImpl")
 public class TaskServiceImpl implements TaskService{
     private final TaskRepository repository;
     private final SubTaskRepository subRepo;
@@ -29,8 +33,12 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public TaskDTO get(Long id) {
-        Task t = repository.getOne(id);
-        return getTaskDTO(t);
+        try {
+            Task t = repository.getOne(id);
+            return getTaskDTO(t);
+        }catch (EntityNotFoundException | NullPointerException exc){
+            return null;
+        }
     }
 
     private TaskDTO getTaskDTO(Task t) {
@@ -66,6 +74,22 @@ public class TaskServiceImpl implements TaskService{
         taskToUpdate.setDue(taskDTO.getDue());
         taskToUpdate.setDone(taskDTO.getDone());
         repository.save(taskToUpdate);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Task t = repository.getOne(id);
+        repository.delete(t);
+    }
+
+    @Override
+    public TaskDTO getByTitle(String title) {
+        try {
+            Task t = repository.findFirstByTitle(title);
+            return getTaskDTO(t);
+        }catch (NullPointerException | EntityNotFoundException exc){
+            return null;
+        }
     }
 
     @Override
