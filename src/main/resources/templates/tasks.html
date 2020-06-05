@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,19 +19,21 @@
         <!-- Links -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/tasks" th:text="#{my.tasks}"></a>
+                <a sec:authorize-url="/tasks" class="nav-link" th:href="@{/tasks}" th:text="#{my.tasks}"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/tasks/new" th:text="#{my.newtask}"></a>
+                <a sec:authorize-url="/tasks/new" class="nav-link" th:href="@{/tasks/new}" th:text="#{my.newtask}"></a>
             </li>
-
+        </ul>
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item mx-auto pt-6" sec:authorize="isFullyAuthenticated()">Hi <span sec:authentication="name"></span></li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/login" th:text="#{my.login}"></a>
+            <li sec:authorize="!isFullyAuthenticated()" class="nav-item">
+                <a class="btn btn-light" href="/login" th:text="#{my.login}"></a>
             </li>
         </ul>
-        <form class="form-inline" th:action="@{/logout}" method="post">
+        <form sec:authorize="isFullyAuthenticated()" class="form-inline" th:action="@{/logout}" method="post">
             <input class="form-control ml-auto" type="submit" value="Sign Out"/>
         </form>
     </nav>
@@ -46,11 +48,11 @@
         <ul>
             <div th:each="task:${tasks}">
                 <li th:text="${task.id} + ' - ' + ${task.title} + ': ' + #{my.due} + ' ' + ${task.due.getMonth()} + ' ' + ${task.due.getDayOfMonth()} + ' ' + ${task.due.getYear()} ">
-                </li><a th:href="@{|/tasks/${task.id}|}" th:text="'[' + #{my.taskdetail} + ']'"></a>
+                </li><a sec:authorize-url="/tasks/${task.id}" th:href="@{|/tasks/${task.id}|}" th:text="'[' + #{my.taskdetail} + ']'"></a>
             </div>
         </ul>
     </div>
-    <div><a href="tasks/new" th:text="#{my.newtask}"></a></div>
+    <div><a sec:authorize-url="/tasks/new" th:href="@{tasks/new}" th:text="#{my.newtask}"></a></div>
 </main>
 <footer class="footer">
     <div class="container">

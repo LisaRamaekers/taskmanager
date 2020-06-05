@@ -22,9 +22,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+				//ALL
 				.antMatchers("/css/**", "/js/**", "/images/**").permitAll()
+				.mvcMatchers("/").permitAll()
 				.mvcMatchers("/signup").permitAll()
+				//ADMIN
+				.mvcMatchers("/tasks/new").hasAuthority("ADMIN")
+				.mvcMatchers("/tasks/edit/*").hasAuthority("ADMIN")
+				.mvcMatchers("tasks/*/sub/create").hasAuthority("ADMIN")
 				.mvcMatchers("/new").hasAuthority("ADMIN")
+				//AUTHENTICATED
+				.mvcMatchers("/tasks").fullyAuthenticated()
+				.mvcMatchers("/tasks/*").fullyAuthenticated()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()

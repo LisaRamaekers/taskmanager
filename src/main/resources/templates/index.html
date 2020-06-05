@@ -20,26 +20,32 @@
         <!-- Links -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/tasks" th:text="#{my.tasks}"></a>
+                <a sec:authorize-url="/tasks" class="nav-link" th:href="@{/tasks}" th:text="#{my.tasks}"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/tasks/new" th:text="#{my.newtask}"></a>
+                <a sec:authorize-url="/tasks/new" class="nav-link" th:href="@{/tasks/new}" th:text="#{my.newtask}"></a>
             </li>
-
+        </ul>
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item mx-auto pt-6" sec:authorize="isFullyAuthenticated()">Hi <span sec:authentication="name"></span></li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <li sec:authorize="!isFullyAuthenticated()" class="nav-item">
                 <a class="btn btn-light" href="/login" th:text="#{my.login}"></a>
             </li>
         </ul>
-        <form class="form-inline" th:action="@{/logout}" method="post">
+        <form sec:authorize="isFullyAuthenticated()" class="form-inline" th:action="@{/logout}" method="post">
             <input class="form-control ml-auto" type="submit" value="Sign Out"/>
         </form>
-
     </nav>
 </header>
 <main class="container">
     <h1 class="mt-5" th:text="#{greeting}"></h1>
+    <p>This website is a task manager web application. </p>
+    <p>We'll give you some basic information about how it works.
+    Only logged in users can view the tasks.
+    Only admins can create and alter tasks. </p>
+    <p>Now let's be productive!</p>
 </main>
 
 
