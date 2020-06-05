@@ -44,9 +44,9 @@
     <table>
         <div th:text="#{my.title} + ': ' + ${task.title}"></div>
         <div th:text="#{my.description} + ': ' + ${task.description}"></div>
-        <div th:text="#{my.date} + ': ' + ${task.due}"></div>
+        <div th:text="#{my.date} + ': ' + ${task.due.getMonth()} + ' ' + ${task.due.getDayOfMonth()} + ' ' + ${task.due.getYear()} + ', ' + #{my.at} + ' ' + ${task.due.getHour()} + #{my.h} + ${task.due.getMinute()} "></div>
     </table>
-    <div><a sec:authorize-url="/tasks/edit/${task.id}" th:text="#{my.edittask}" th:href="@{|/tasks/edit/${task.id}|}"></a></div>
+    <div><a class="btn btn-outline-secondary btn-sm" sec:authorize-url="/tasks/edit/${task.id}" th:text="#{my.edittask}" th:href="@{|/tasks/edit/${task.id}|}"></a></div>
     <h2 th:text="#{my.subtasks}"></h2>
     <table>
         <div th:if="${subtasks==null or subtasks.empty}">
@@ -61,7 +61,7 @@
 
             </div>
     </table>
-    <div><a sec:authorize-url="/tasks/${task.id}/sub/create}" th:text="#{my.addsubtask}" th:href="@{|/tasks/${task.id}/sub/create|}"></a></div>
+    <div><a class="btn btn-outline-secondary btn-sm"  sec:authorize-url="/tasks/${task.id}/sub/create" th:text="#{my.addsubtask}" th:href="@{|/tasks/${task.id}/sub/create|}"></a></div>
 </main>
 <footer class="footer">
     <div class="container">

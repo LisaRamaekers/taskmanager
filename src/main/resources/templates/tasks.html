@@ -47,8 +47,8 @@
     <div th:if="${tasks!=null and !tasks.empty}">
         <ul>
             <div th:each="task:${tasks}">
-                <li th:text="${task.id} + ' - ' + ${task.title} + ': ' + #{my.due} + ' ' + ${task.due.getMonth()} + ' ' + ${task.due.getDayOfMonth()} + ' ' + ${task.due.getYear()} ">
-                </li><a sec:authorize-url="/tasks/${task.id}" th:href="@{|/tasks/${task.id}|}" th:text="'[' + #{my.taskdetail} + ']'"></a>
+                <li th:text="${task.title} + ': ' + #{my.due} + ' ' + ${task.due.getMonth()} + ' ' + ${task.due.getDayOfMonth()} + ' ' + ${task.due.getYear()} ">
+                </li><a class="btn btn-outline-secondary btn-sm" sec:authorize-url="/tasks/${task.id}" th:href="@{|/tasks/${task.id}|}" th:text="#{my.taskdetail}"></a>
             </div>
         </ul>
     </div>
