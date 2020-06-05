@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//ADMIN
 				.mvcMatchers("/tasks/new").hasAuthority("ADMIN")
 				.mvcMatchers("/tasks/edit/*").hasAuthority("ADMIN")
-				.mvcMatchers("tasks/*/sub/create").hasAuthority("ADMIN")
+				.mvcMatchers("/tasks/*/sub/create").hasAuthority("ADMIN")
 				.mvcMatchers("/new").hasAuthority("ADMIN")
 				//AUTHENTICATED
 				.mvcMatchers("/tasks").fullyAuthenticated()
