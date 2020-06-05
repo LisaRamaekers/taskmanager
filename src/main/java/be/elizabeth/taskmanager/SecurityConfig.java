@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//AUTHENTICATED
 				.mvcMatchers("/tasks").fullyAuthenticated()
 				.mvcMatchers("/tasks/*").fullyAuthenticated()
+				//API
+				.mvcMatchers("/api/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
